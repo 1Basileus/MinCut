@@ -4,5 +4,7 @@ Edge.java
  Edge
 Graph.java
  Graph
+Configuration.java
+ Configuration
 Application.java
  Application

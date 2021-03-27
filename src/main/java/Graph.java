@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Graph {
     private List<Vertex> vertices;
@@ -48,11 +46,7 @@ public class Graph {
     }
 
     public void addEdge(Edge edge) {
-        for(Edge e : edges){
-            if(e.equals(edge)){
-                return;
-            }
-        }
+
         if(vertices.contains(edge.getV1()) && vertices.contains(edge.getV2())){
             edges.add(edge);
         }
@@ -90,9 +84,43 @@ public class Graph {
             if(edge.getV1().equals(vertex)){
                 connectedEdges.add(edge);
             }else if(edge.getV2().equals(vertex)){
-                connectedEdges.add(new Edge(vertex,edge.getV1()));
+                Edge tmp = edge.clone(vertex,edge.getV1());
+                connectedEdges.add(tmp);
             }
         }
         return connectedEdges;
+    }
+
+    public Graph clone(){
+        Graph clonedGraph = new Graph();
+        for(Vertex vertex : vertices){
+            clonedGraph.addVertex(vertex);
+        }
+        for(Edge edge : edges){
+            clonedGraph.addEdge(edge);
+        }
+        return clonedGraph;
+    }
+
+    public void mergeVertices(Vertex v1, Vertex v2){
+        v1.setLabel(v1.getLabel() + v2.getLabel());
+        List<Edge> edgesToRemove = new ArrayList<>();
+        for(Edge edge : edges){
+            if(edge.getV1().equals(v2)){
+                if(edge.getV2().equals(v1)){
+                    edgesToRemove.add(edge);
+                }else{
+                    edge.setV1(v1);
+                }
+            }
+            if(edge.getV2().equals(v2)){
+                if(edge.getV1().equals(v1)){
+                    edgesToRemove.add(edge);
+                }edge.setV2(v1);
+            }
+        }
+
+        edges.removeAll(edgesToRemove);
+        vertices.remove(v2);
     }
 }

@@ -8,6 +8,10 @@ public class Vertex {
         return label;
     }
 
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     @Override
     public boolean equals(Object o) {
 
@@ -17,5 +21,9 @@ public class Vertex {
         }
         Vertex vertex = (Vertex) o;
         return label == vertex.label;
+    }
+
+    public Vertex clone(){
+        return new Vertex(label);
     }
 }
