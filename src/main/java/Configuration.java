@@ -1,6 +1,7 @@
 public enum Configuration {
     instance;
-    public boolean verbose = true;
-    public boolean moreResults = true;
-    public int numberOfRuns = 1;
+    public boolean verbose = false;
+    public boolean moreResults = false;
+    public boolean showProbability = true;
+    public int numberOfRuns = 1000000;
 }
